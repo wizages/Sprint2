@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link href="video-js.css" rel="stylesheet">
+  <link rel="stylesheet" href="videojs.ads.css" />
+  <link rel="stylesheet" href="videojs.ima.css" />
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <header class="siteheader">
+    <nav class="navbar-fixed-to">
+      <h1 align="center">Example of HLS streaming with a preroll video</h1>
+    </nav>
+  </header>
+  <div class="videocontainer">
+    <video id="my-video" class="video-js centervideo" controls preload="auto" width="640" height="264" data-setup="{}">
+      <source src="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8" type='application/x-mpegURL'>
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+  </div>
+  <script src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <script src="video.js"></script>
+  <script src="videojs-contrib-hls.min.js"></script>
+  <script src="videojs.ads.js"></script> 
+  <script src="videojs.ima.js"></script>
+  <script>
+  var player = videojs('my-video');
+
+  
+  var options = {
+    id: 'my-video',
+    adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+  };
+
+  // This must be called before player.play() below.
+  player.ima(options);
+  player.ima.requestAds();
+  
+  /*
+  player.ads({
+    debug: true
+  }); // initialize the ad framework
+  player.on('preroll', function() {
+    console.log("enter")
+    player.ads.startLinearAdMode();
+    player.src('kitteh.mp4');
+    }); 
+  // request ads whenever there's new video content
+    // when all your linear ads have finished… do not confuse this with `ended`
+  player.one('adended', function() {
+      console.log('done')
+      player.ads.endLinearAdMode();
+  });
+    */
+  player.play();
+  </script>
+</body>
+
+
+</html>
